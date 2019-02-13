@@ -1,7 +1,6 @@
 package programatestejava;
 
 import java.util.Scanner;
-import java.lang.String;
 
 public class ProgramaTesteJava {
     public static void main(String[] args) {
