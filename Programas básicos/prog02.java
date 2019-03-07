@@ -1,5 +1,3 @@
-package programatestejava;
-
 import java.util.Scanner;
 
 public class ProgramaTesteJava {
