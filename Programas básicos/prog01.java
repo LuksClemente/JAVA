@@ -1,5 +1,3 @@
-package primeiroprogramajava;
-
 import java.util.Scanner;
 
 public class PrimeiroProgramaJava {
