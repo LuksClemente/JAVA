@@ -38,10 +38,9 @@ class Motorista{
 	}
 }
 class MeuPrograma{
-	private Automovel carro1;
-	private Motorista motorista1, motorista2;
-	
 	public static void main(String args[]){
+		Automovel carro1;
+		Motorista motorista1, motorista2;
 		carro1 = new Automovel("Chevette", 87);
 		motorista1= new Motorista("Joao", carro1);
 		motorista2 = new Motorista("Pedro", carro1);
