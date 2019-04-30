@@ -36,7 +36,7 @@ public class Areas{
 			l2 = Float.parseFloat(args[1]);
 			l3 = Float.parseFloat(args[2]);
 			area = c.Calcula(l1, l2, l3);
-			System.out.print("Area do triangulo: %f\n", area);
+			System.out.printf("Area do triangulo: %f\n", area);
 			if((l1 == l2)&&(l2 == l3)){
 				System.out.println("O triangulo eh equilatero!");
 			}
