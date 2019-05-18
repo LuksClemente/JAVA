@@ -52,8 +52,8 @@ public class Ex2{
 			}
 			System.out.print("Digite um novo angulo(em graus): ");
 			angs = inData.readLine();
-			int contador = 0, i;
 			while(/*!line.isEmpty()*/!angs.equals("")){
+				int contador = 0, i;
 				for(i = 0; i < angs.length(); i++){
 					if(angs.charAt(i) == ' '){
 						contador++;
