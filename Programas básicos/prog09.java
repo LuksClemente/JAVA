@@ -37,39 +37,47 @@ public class Ex2{
 				cosseno = ang.funcaoCosseno(radiano);
 				tangente = ang.funcaoTangente(radiano);
 				cotangente = ang.funcaoCotangente(radiano);
-				if (cosseno != 0){
-					System.out.printf("Seno: %.2f\nCosseno: %.2f\nTangente: %.2f\nCotangente: %.2f\n", seno, cosseno, tangente, cotangente);
-				}
-				else if(cosseno == 0){
+				if((angulo%90 == 0)&&(angulo%180 != 0)){
 					System.out.printf("Seno: %.2f\nCosseno: %.2f\nTangente: INEXISTENTE\nCotangente: %.2f\n", seno, cosseno, cotangente);
 				}
-				else if(tangente == 0){
+				else if((angulo == 0)||(angulo%180 ==0)){
 					System.out.printf("Seno: %.2f\nCosseno: %.2f\nTangente: %.2f\nCotangente: INEXISTENTE\n", seno, cosseno,tangente);
+				}
+				else{
+					System.out.printf("Seno: %.2f\nCosseno: %.2f\nTangente: %.2f\nCotangente: %.2f\n", seno, cosseno, tangente, cotangente);
 				}
 			}
 			else if (args.length > 1){
-				System.out.println("Voce so' pode passar um unico parametro! =(");
-			}
-			else{
-				System.out.println("Voce deve passar um parametro! =(");
+				System.out.println("Voce so' pode passar um unico angulo! =(");
 			}
 			System.out.print("Digite um novo angulo(em graus): ");
 			angs = inData.readLine();
+			int contador = 0, i;
 			while(/*!line.isEmpty()*/!angs.equals("")){
-				angulo = Double.parseDouble(angs);
-				radiano = ang.converteAngulo(angulo);
-				seno = ang.funcaoSeno(radiano);
-				cosseno = ang.funcaoCosseno(radiano);
-				tangente = ang.funcaoTangente(radiano);
-				cotangente = ang.funcaoCotangente(radiano);
-				if ((cosseno != 0)&&(tangente != 0)){
-					System.out.printf("Seno: %.2f\nCosseno: %.2f\nTangente: %.2f\nCotangente: %.2f\n", seno, cosseno, tangente, cotangente);
+				for(i = 0; i < angs.length(); i++){
+					if(angs.charAt(i) == ' '){
+						contador++;
+					}
 				}
-				else if(cosseno == 0){
-					System.out.printf("Seno: %.2f\nCosseno: %.2f\nTangente: INEXISTENTE\nCotangente: %.2f\n", seno, cosseno, cotangente);
+				if(contador == 0){
+					angulo = Double.parseDouble(angs);
+					radiano = ang.converteAngulo(angulo);
+					seno = ang.funcaoSeno(radiano);
+					cosseno = ang.funcaoCosseno(radiano);
+					tangente = ang.funcaoTangente(radiano);
+					cotangente = ang.funcaoCotangente(radiano);
+					if((angulo%90 == 0)&&(angulo%180 != 0)){
+						System.out.printf("Seno: %.2f\nCosseno: %.2f\nTangente: INEXISTENTE\nCotangente: %.2f\n", seno, cosseno, cotangente);
+					}
+					else if((angulo == 0)||(angulo%180 ==0)){
+						System.out.printf("Seno: %.2f\nCosseno: %.2f\nTangente: %.2f\nCotangente: INEXISTENTE\n", seno, cosseno,tangente);
+					}
+					else{
+						System.out.printf("Seno: %.2f\nCosseno: %.2f\nTangente: %.2f\nCotangente: %.2f\n", seno, cosseno, tangente, cotangente);
+					}
 				}
-				else if(tangente == 0){
-					System.out.printf("Seno: %.2f\nCosseno: %.2f\nTangente: %.2f\nCotangente: INEXISTENTE\n", seno, cosseno,tangente);
+				else if(contador >= 1){
+					System.out.println("Voce so' pode passar um unico angulo! =(");
 				}
 				System.out.print("Digite um novo angulo(em graus): ");
 				angs = inData.readLine();
