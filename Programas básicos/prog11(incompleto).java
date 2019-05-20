@@ -1,10 +1,21 @@
 import java.io.*;
+import java.util.*;
 
+class MuitosParametros extends Exception{
+	public MuitosParametros(){
+		super("Numero de parametros excessivo! =(");
+	}
+}
+class NenhumParametro extends Exception{
+	public NenhumParametro(){
+		super("Nenhum parametro informado! =(");
+	}
+}
 class Funcionario{
 	String nome, codigo;
-	float salario, salarioliq;
+	double salario, salarioliq;
 	
-	public Funcionario(String n, String cod, float sal){
+	public Funcionario(String n, String cod, double sal){
 		this.nome = n;
 		this.codigo = cod;
 		this.salario = sal;
@@ -15,18 +26,25 @@ class Funcionario{
 		return salarioliq;
 	}
 	public String toString(){
-		return "Nome: " + nome + "\nCodigo: " + codigo "\nSalario-base: " + salario + "\n";
+		return "Nome: " + this.nome + "\nCodigo: " + this.codigo + "\nSalario-base: R$ " + String.format("%.2f", salario);
+	}
+	public String getNome(){
+		return this.nome;
+	}
+	public String getCodigo(){
+		return this.nome;
+	}
+	public double getSalario(){
+		return this.salario;
 	}
 }
 class FuncionarioContratado extends Funcionario{
 	int dependentes;
-	float valorPorDep = 9.58;
-	float aliquotaIR = 0.15;
+	double valorPorDep = 9.58;
+	double aliquotaIR = 0.15;
 	
-	public FuncionarioContratado(String n, String cod, float sal, int dep){
-		this.nome = n;
-		this.codigo = cod;
-		this.salario = sal;
+	public FuncionarioContratado(String n, String cod, double sal, int dep){
+		super(n, cod, sal);
 		this.dependentes = dep;
 	}
 	public void calculaSalario(){
@@ -34,41 +52,83 @@ class FuncionarioContratado extends Funcionario{
 	}
 	public void calculaSalario(int numeroDependentes){
 		salario = salario + (numeroDependentes*valorPorDep);
-		salarioliq = calculaSalario();
+		salarioliq = calculaSalario(aliquotaIR);
 	}
 	public String toString(){
-		return "Nome: " + nome + "\nCodigo: " + codigo "\nSalario-base: " + salario + "\nSalario-liquido: " + salarioliq + "\n";
+		return "\n" + super.toString() + "\nSalario-liquido: R$ " + String.format("%.2f", salarioliq) + "\n";
+	}
+	public int getDependentes(){
+		return this.dependentes;
+	}
+	public double getSalarioliq(){
+		return this.salarioliq;
 	}
 }
 public class Ex4{
-	public static void main(String[] args){
-		String nome, codigo, num, salariostr, dependentestr;
-		float salario, salarioliquido;
-		int dependentes, numero, i, j;
+	int numero;
+	public Ex4(int n){
+		numero = n;
+	}
+	public void calculaSalarios(){
+		int i, dependentes;
+		String nome, codigo, salariostr, dependentesstr;
+		double salario;
+		Collection <FuncionarioContratado> empregados = new ArrayList <FuncionarioContratado> (numero);
 		BufferedReader inData = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("- - - Cadastro de Funcionarios - - -");
+		System.out.print("\n");
 		try{
-			system.out.print("Quantos funcionarios deseja cadastrar?: ");
-			num = inData.readLine();
-			numero = Integer.parseInt(num);
-			public Ex4(int n);
 			for(i = 0; i < numero; i++){
-				Ex4 instancia = new Ex4(numero);
 				System.out.print("Nome do empregado: ");
 				nome = inData.readLine();
-				System.out.print("Codigo: ");
+				System.out.print("Codigo do empregado: ");
 				codigo = inData.readLine();
-				System.out.print("Salario: ");
+				System.out.print("Salario-base: ");
 				salariostr = inData.readLine();
 				System.out.print("Numero de dependentes: ");
-				dependentestr = inData.readLine();
-				dependentes = Integer.parseInt(dependentestr);
-				salario = Float.parseFloat(salariostr);
+				dependentesstr = inData.readLine();
+				dependentes = Integer.parseInt(dependentesstr);
+				salario = Double.parseDouble(salariostr);
 				FuncionarioContratado funcionario = new FuncionarioContratado(nome, codigo, salario, dependentes);
-				salarioliq = funcionario.calculaSalario(dependentes);
+				funcionario.calculaSalario(dependentes);
+				empregados.add(funcionario);
+				System.out.print("\n");
 			}
-			for(j = 0, j < numero; j++){
-				System.out.print(funcionario);
+			System.out.println("- - - Folha Salarial - - -");
+			System.out.print("\n");
+			System.out.println(empregados);
+		}
+		catch(Exception e){
+			System.out.println("Parametro informado e' invalido! =(");
+		}
+	}
+	public static void main(String[] args){
+		int numero, i, contador = 0;
+		String num;
+		BufferedReader inData = new BufferedReader(new InputStreamReader(System.in));
+		try{
+			System.out.print("Quantos funcionarios deseja cadastrar?: ");
+			num = inData.readLine();
+			for(i = 0; i < num.length(); i++){
+				if(num.charAt(i) == ' '){
+					contador++;
+				}
 			}
+			if(contador > 0){
+				throw new MuitosParametros();
+			}
+			else if(num.equals("") == true){
+				throw new NenhumParametro();
+			}
+			numero = Integer.parseInt(num);
+			Ex4 instancia = new Ex4(numero);
+			instancia.calculaSalarios();
+		}
+		catch(MuitosParametros e){
+			System.out.println(e);
+		}
+		catch(NenhumParametro e){
+			System.out.println(e);
 		}
 		catch(Exception e){
 			System.out.println("Parametro passado e' invalido! =(");
