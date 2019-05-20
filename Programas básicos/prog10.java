@@ -1,112 +1,77 @@
 import java.io.*;
-import java.lang.Math;
 
-class MuitosParametros extends Exception{
-	public MuitosParametros(){
-		super("Numero de parametros excessivo! =(");
-	}
-}
-class NenhumParametro extends Exception{
-	public NenhumParametro(){
-		super("Nenhum parametro informado! =(");
-	}
-}
-class NumberFormatException extends Exception{
-	public NumberFormatException(){
-		super("Erro formatacao de parametro! =(");
-	}
-}
-class AnguloObj{
-	private double arcoRad;
-	double sen, cos, tan, cotan, ang;
+class Funcionario{
+	String nome, codigo;
+	float salario, salarioliq;
 	
-	public AnguloObj(double a) throws NumberFormatException{
-		this.arcoRad = Math.toRadians(a);
-		this.ang = a;
+	public Funcionario(String n, String cod, float sal){
+		this.nome = n;
+		this.codigo = cod;
+		this.salario = sal;
+		this.salarioliq = sal;
 	}
-	public double converteAngulo(){
-		return arcoRad;
-	}
-	public double funcaoSeno(){
-		return Math.sin(arcoRad);
-		
-	}
-	public double funcaoCosseno(){
-		return Math.cos(arcoRad);
-	}
-	public double funcaoTangente(){
-		return Math.tan(arcoRad);
-	}
-	public double funcaoCotangente(){
-		return 1/(Math.tan(arcoRad));
+	public double calculaSalario(double desconto){
+		salarioliq = salario - (salario*desconto);
+		return salarioliq;
 	}
 	public String toString(){
-		if((ang%90 == 0)&&(ang%180 != 0)){
-			return "Arco: "+ String.format("%.2f", converteAngulo()) + "\nSeno: " + String.format("%.2f", funcaoSeno()) + "\nCosseno: " + String.format("%.2f", funcaoCosseno()) + "\nTangente: INEXISTENTE\nCotangente: INEXISTENTE\n";
-		}
-		else if((ang==0)||(ang%180 == 0)){
-			return "Arco: " + String.format("%.2f", converteAngulo()) + "\nSeno: " + String.format("%.2f", funcaoSeno()) + "\nCosseno: " + String.format("%.2f", funcaoCosseno()) + "\nTangente: " + String.format("%.2f", funcaoTangente()) + "\nCotangente: INEXISTENTE\n";
-		}
-		else{
-			return "Arco: " + String.format("%.2f", arcoRad) + "\nSeno: " + String.format("%.2f", funcaoSeno()) + "\nCosseno: " + String.format("%.2f", funcaoCosseno()) + "\nTangente: " + String.format("%.2f", funcaoTangente()) + "\nCotangente: " + String.format("%.2f", funcaoCotangente()) + "\n";
-		}
+		return "Nome: " + this.nome + "\nCodigo: " + this.codigo + "\nSalario-base: " + this.salario + "\n";
 	}
 }
-public class Ex3{
+class FuncionarioContratado extends Funcionario{
+	int dependentes;
+	float valorPorDep = 9.58;
+	float aliquotaIR = 0.15;
+	
+	public FuncionarioContratado(String n, String cod, float sal, int dep){
+		this.nome = n;
+		this.codigo = cod;
+		this.salario = sal;
+		this.dependentes = dep;
+	}
+	public void calculaSalario(){
+		salarioliq = calculaSalario(aliquotaIR);
+	}
+	public void calculaSalario(int numeroDependentes){
+		salario = salario + (numeroDependentes*valorPorDep);
+		salarioliq = calculaSalario();
+	}
+	public String toString(){
+		return "Nome: " + this.nome + "\nCodigo: " + this.codigo + "\nSalario-base: " + this.salario + "\nSalario-liquido: " + this.salarioliq + "\n";
+	}
+}
+public class Ex4{
 	public static void main(String[] args){
-		int max, i, j, contador = 0;
-		double angle;
-		String input = new String();
+		String nome, codigo, num, salariostr, dependentestr;
+		float salario, salarioliquido;
+		int dependentes, numero, i, j;
 		BufferedReader inData = new BufferedReader(new InputStreamReader(System.in));
 		try{
-			System.out.print("Digite o numero de angulos: ");
-			input = inData.readLine();
-			for(i = 0; i < input.length(); i++){
-				if(input.charAt(i) == ' '){
-					contador++;
-				}
+			system.out.print("Quantos funcionarios deseja cadastrar?: ");
+			num = inData.readLine();
+			numero = Integer.parseInt(num);
+			public Ex4(int n);
+			for(i = 0; i < numero; i++){
+				Ex4 instancia = new Ex4(numero);
+				System.out.print("Nome do empregado: ");
+				nome = inData.readLine();
+				System.out.print("Codigo: ");
+				codigo = inData.readLine();
+				System.out.print("Salario: ");
+				salariostr = inData.readLine();
+				System.out.print("Numero de dependentes: ");
+				dependentestr = inData.readLine();
+				dependentes = Integer.parseInt(dependentestr);
+				salario = Float.parseFloat(salariostr);
+				FuncionarioContratado funcionario = new FuncionarioContratado(nome, codigo, salario, dependentes);
+				salarioliq = funcionario.calculaSalario(dependentes);
 			}
-			if(contador > 0){
-				throw new MuitosParametros();
-			}
-			else if(input.equals("") == true){
-				throw new NenhumParametro();
-			}
-			max = Integer.parseInt(input);
-			AnguloObj[] angulosvet = new AnguloObj[max];
-			for (i = 0; i < max ; i++){
-				System.out.printf("Digite o angulo[%d]: ", i+1);
-				input = inData.readLine();
-				for(j = 0; j < input.length(); j++){
-					if(input.charAt(j) == ' '){
-						contador++;
-					}
-				}
-				if(contador > 0){
-					throw new MuitosParametros();
-				}
-				else if(input.equals("") == true){
-					throw new NenhumParametro();
-				}
-				angle = Double.parseDouble(input);
-				angulosvet[i] = new AnguloObj(angle);
-			}
-			System.out.println("==========RESULTADO==========");
-			for (i = 0 ; i < max; i++){
-				System.out.println(angulosvet[i]);
+			for(j = 0; j < numero; j++){
+				System.out.print(funcionario);
 			}
 		}
-		catch(MuitosParametros e){
-			System.out.println(e);
-		}
-		catch(NenhumParametro e){
-			System.out.println(e);
-		}
-		catch(NumberFormatException e){
-			System.out.println(e);
-		}
-		catch(IOException e){
-			System.out.println("Parametro inserido nao e' numerico! =(");
+		catch(Exception e){
+			System.out.println("Parametro passado e' invalido! =(");
 		}
 	}
 }
