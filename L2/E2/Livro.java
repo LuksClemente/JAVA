@@ -26,6 +26,14 @@ class Livro{
 			return "\nData de Emprestimo: " + dataEmp + "\nData de devolucao: " + dataDev + "\nCodigo do livro: " + codigoLivro;
 		}
 	}
+	public void empresta(){
+		if (qtd == emprestados){
+			throw new CopiaNaoDisponivelEx();
+		}
+	}
+	public void devolve(){
+		throw new NenhumaCopiaEmprestadaEx();
+	}
 	Collection <EmprestadoPara> Historico = new ArrayList <EmprestadoPara> ();
 	
 	public void addUsuarioHist(GregorianCalendar demp, GregorianCalendar ddev, String codliv){
