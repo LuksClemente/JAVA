@@ -176,6 +176,9 @@ public class Ex1{
 				pessoas = lista.ordena(escolha2);
 				System.out.println(pessoas);
 			}
+			else if(escolha1 == 2){
+				System.out.println("\n----------------PROGRAMA ENCERRADO----------------");
+			}
 		}
 		catch(IOException e){
 			System.out.println("Algo de errado nao esta' certo! =(");
