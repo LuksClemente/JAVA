@@ -125,7 +125,6 @@ class MinhaListaOrdenavel{
 			case 5:
 				Collections.sort(pessoas, imcC);
 			default:
-				System.out.println("Opcao invalida!");
 		}
 		return pessoas;
 	}
@@ -136,6 +135,7 @@ public class Ex1{
 		int escolha1, escolha2;
 		BufferedReader inData = new BufferedReader(new InputStreamReader(System.in));
 		MinhaListaOrdenavel lista = new MinhaListaOrdenavel();
+		ArrayList <PessoaIMC> pessoas = new ArrayList <PessoaIMC>();
 		Homem p1 = new Homem("Lucas", "22/11/1999", 74.0, 1.78);
 		lista.addP(p1);
 		Mulher p2 = new Mulher("Ana", "19/01/2012", 30.0, 1.31);
@@ -173,7 +173,8 @@ public class Ex1{
 				System.out.print("\nDigite sua opcao: ");
 				opcao2 = inData.readLine();
 				escolha2 = Integer.parseInt(opcao2);
-				lista.ordena(escolha2);
+				pessoas = lista.ordena(escolha2);
+				System.out.println(pessoas);
 			}
 		}
 		catch(IOException e){
