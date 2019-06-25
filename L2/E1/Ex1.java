@@ -2,6 +2,11 @@ import java.io.*;
 import java.util.*;
 import java.lang.Math;
 
+class ErrParEx extends Exception{
+	public ErrParEx(){
+		super("Opcao nao valida! =(");
+	}
+}
 class Pessoa{
 	private String nome, dataNascimento;
 	
@@ -112,19 +117,25 @@ class MinhaListaOrdenavel{
 			return nome1.compareTo(nome2);
 		}
 	};
-	public ArrayList ordena(int criterio){
+	public ArrayList ordena(int criterio) throws ErrParEx{
 		switch(criterio){
 			case 1:
 				Collections.sort(pessoas, nomeC);
+				break;
 			case 2:
 				Collections.sort(pessoas, nomeC.reversed());
+				break;
 			case 3:
-				Collections.sort(pessoas, pesoC);
+				Collections.sort(pessoas, pesoC.reversed());
+				break;
 			case 4: 
-				Collections.sort(pessoas, alturaC.reversed());
+				Collections.sort(pessoas, alturaC);
+				break;
 			case 5:
-				Collections.sort(pessoas, imcC);
+				Collections.sort(pessoas, imcC.reversed());
+				break;
 			default:
+				throw new ErrParEx();
 		}
 		return pessoas;
 	}
@@ -179,6 +190,15 @@ public class Ex1{
 			else if(escolha1 == 2){
 				System.out.println("\n----------------PROGRAMA ENCERRADO----------------");
 			}
+			else{
+				throw new ErrParEx();
+			}
+		}
+		catch(NumberFormatException e){
+			System.out.println("Essa variavel nao e' numero! =(");
+		}
+		catch(ErrParEx e){
+			System.out.println(e);
 		}
 		catch(IOException e){
 			System.out.println("Algo de errado nao esta' certo! =(");
